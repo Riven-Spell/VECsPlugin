@@ -70,7 +70,7 @@ namespace VECsPlugin.Effects
             // m_Spread.Multiplicative = perc * m_cardMultiplier * 0.6f;
             m_Reload.Multiplicative = Mathf.Lerp(1 / m_cardMultiplier, 1, perc);
             m_AttackSpeed.Multiplicative = Mathf.Lerp(1 / m_cardMultiplier, 1, perc);
-            m_Spread.Multiplicative = Mathf.Lerp(0, 1 / m_cardMultiplier, 1 - perc);
+            m_Spread.Additive = Mathf.Lerp(0, .04f * m_cardMultiplier, 1 - perc);
             DoModifierUpdate();
         }
 
@@ -78,7 +78,7 @@ namespace VECsPlugin.Effects
         {
             m_Reload.Multiplicative = 1f;
             m_AttackSpeed.Multiplicative = 1f;
-            m_Spread.Multiplicative = 1f;
+            m_Spread.Additive = 0f;
             DoModifierUpdate();
             Destroy(this);     
         }
