@@ -44,6 +44,9 @@
         <Reference Include="BepInEx.Harmony, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>Libs\BepInEx.Harmony.dll</HintPath>
         </Reference>
+        <Reference Include="CardChoiceSpawnUniqueCardPatch, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>Libs\CardChoiceSpawnUniqueCardPatch.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />

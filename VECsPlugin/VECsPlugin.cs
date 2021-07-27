@@ -10,9 +10,10 @@ using VECsPlugin.Effects;
 
 namespace VECsPlugin
 {
-    [BepInPlugin("org.virepri.rounds.vecs", "Panic Card", "0.1")]
+    [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "0.1")]
     [BepInProcess("Rounds.exe")]
     [BepInDependency("com.willis.rounds.unbound", "2.3.0")]
+    [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch")]
     public class VECsPlugin : BaseUnityPlugin
     {
         private void Start()

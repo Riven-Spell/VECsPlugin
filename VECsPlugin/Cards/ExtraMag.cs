@@ -1,4 +1,5 @@
-﻿using UnboundLib;
+﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 using VECsPlugin.Effects;
@@ -41,6 +42,8 @@ namespace VECsPlugin.Cards
         {
             statModifiers.automaticReload = false;
             cardInfo.allowMultiple = false;
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("Temporary") };
+            cardInfo.blacklistedCategories = new CardCategory[] {CustomCardCategories.instance.CardCategory("Temporary")};
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,
