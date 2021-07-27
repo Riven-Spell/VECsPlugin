@@ -26,7 +26,7 @@ namespace VECsPlugin.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Common;
         }
 
         protected override GameObject GetCardArt()

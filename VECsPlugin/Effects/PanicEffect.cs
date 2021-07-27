@@ -76,7 +76,11 @@ namespace VECsPlugin.Effects
 
         public void EndGame()
         {
-            Destroy(this);            
+            m_Reload.Multiplicative = 1f;
+            m_AttackSpeed.Multiplicative = 1f;
+            m_Spread.Multiplicative = 1f;
+            DoModifierUpdate();
+            Destroy(this);     
         }
 
         public void SetupRound()

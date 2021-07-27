@@ -51,6 +51,8 @@ namespace VECsPlugin.Effects
 
         public void EndGame()
         {
+            m_GunSpeedMod.Multiplicative = 1f;
+            m_fsm.Update();
             Destroy(this);
         }
 

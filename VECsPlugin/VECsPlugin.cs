@@ -37,6 +37,9 @@ namespace VECsPlugin
                 reversibleEffect.EndGame();
             }
 
+            // Kill all reversible effects
+            reversibleEffects.RemoveRange(0, reversibleEffects.Count);
+
             yield break;
         }
 
