@@ -1,25 +1,34 @@
 ﻿using System;
 using UnboundLib.GameModes;
+using UnityEngine;
+using VECsPlugin.Util;
 
 namespace VECsPlugin.Effects
 {
-    public class ExtraMagEffect : ReversibleEffect
+    public class ExtraMagEffect : MonoBehaviour, ReversibleEffect
     {
         private Gun m_Gun;
+        private FloatStatModifier m_GunSpeedMod;
+        private FloatStatManager m_fsm;
         private bool m_prepared;
         private bool m_secondMagLoaded = true;
         
-        public void PrepareOnce(Gun g)
+        public void PrepareOnce(Gun gun, FloatStatModifier gunSpeedMod, FloatStatManager fsm)
         {
             if (m_prepared)
                 return;
-            
-            m_Gun = g;
 
-            m_prepared = true;
+            m_GunSpeedMod = gunSpeedMod;
+            m_Gun = gun;
+            m_fsm = fsm;
 
             if (GameModeManager.CurrentHandler.Name == "Sandbox")
-                m_Gun.GetComponentInChildren<GunAmmo>().reloadTimeMultiplier /= 2;
+            {
+                m_GunSpeedMod.Multiplicative = .5f;
+                m_fsm.Update();
+            }
+
+            m_prepared = true;
         }
 
         private bool m_lastReloadState = false;
@@ -32,35 +41,29 @@ namespace VECsPlugin.Effects
                 m_secondMagLoaded = !m_secondMagLoaded;
                 
                 // Adjust our reload speed
-                var ammo = m_Gun.GetComponentInChildren<GunAmmo>();
-                // Alternate
-                ammo.reloadTimeMultiplier *= m_secondMagLoaded ? .25f : 4f;
-                UnityEngine.Debug.Log($"Current fire rate: {ammo.reloadTimeMultiplier}");
+                m_GunSpeedMod.Multiplicative = m_secondMagLoaded ? .5f : 2f;
+                // fire the update
+                m_fsm.Update();
             }
             
             m_lastReloadState = m_Gun.isReloading;
         }
 
-        public override void EndGame()
+        public void EndGame()
         {
-            VECsPlugin.reversibleEffects.Remove(this);
             Destroy(this);
         }
 
-        public override void SetupRound()
+        public void SetupRound()
         {
             m_secondMagLoaded = true;
-            var ammo = m_Gun.GetComponentInChildren<GunAmmo>();
-            UnityEngine.Debug.Log($"Current fire rate: {ammo.reloadTimeMultiplier}");
-            ammo.reloadTimeMultiplier /= 2;
-            UnityEngine.Debug.Log($"Current fire rate: {ammo.reloadTimeMultiplier}");
+            m_GunSpeedMod.Multiplicative = .5f;
+            m_fsm.Update();
         }
 
-        public override void CleanupRound()
+        public void CleanupRound()
         {
-            var ammo = m_Gun.GetComponentInChildren<GunAmmo>();
-            ammo.reloadTimeMultiplier *= m_secondMagLoaded ? .5f : 2f;
-            UnityEngine.Debug.Log($"Current fire rate: {ammo.reloadTimeMultiplier}");
+            
         }
     }
 }

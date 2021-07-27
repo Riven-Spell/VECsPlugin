@@ -3,6 +3,7 @@ using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 using VECsPlugin.Effects;
+using VECsPlugin.Util;
 
 namespace VECsPlugin.Cards
 {
@@ -42,16 +43,21 @@ namespace VECsPlugin.Cards
         {
             statModifiers.automaticReload = false;
             cardInfo.allowMultiple = false;
-            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("Temporary") };
-            cardInfo.blacklistedCategories = new CardCategory[] {CustomCardCategories.instance.CardCategory("Temporary")};
+            // cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("Temporary") };
+            // cardInfo.blacklistedCategories = new CardCategory[] {CustomCardCategories.instance.CardCategory("Temporary")};
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,
             Block block, CharacterStatModifiers characterStats)
         {
             characterStats.automaticReload = false; // Auto reload is disabled, because it creates a bottomless clip.
+            var thisStatModRegistry = player.gameObject.GetOrAddComponent<StatModifierRegistry>();
+            var thisReloadSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunReloadSpeedMultiplier, FloatStatManagerInit.PrepareInitReloadSpeed(gameObject, gun));
+            var thisReloadSpeedStatModifier = new FloatStatModifier();
+            thisReloadSpeedManager.RegisterModifier(thisReloadSpeedStatModifier);
             var thisExtraMagEffect = player.gameObject.GetOrAddComponent<ExtraMagEffect>();
-            thisExtraMagEffect.PrepareOnce(gun);
+            thisExtraMagEffect.PrepareOnce(gun, thisReloadSpeedStatModifier, thisReloadSpeedManager);
+            
             VECsPlugin.reversibleEffects.Add(thisExtraMagEffect);
         }
 

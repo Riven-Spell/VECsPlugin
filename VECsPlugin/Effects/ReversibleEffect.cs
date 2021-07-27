@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace VECsPlugin.Effects
 {
-    public abstract class ReversibleEffect : MonoBehaviour
+    public interface ReversibleEffect
     {
-        public abstract void EndGame();
-        public abstract void SetupRound();
-        public abstract void CleanupRound();
+        void EndGame();
+        void SetupRound();
+        void CleanupRound();
     }
 }

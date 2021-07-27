@@ -67,6 +67,7 @@
         <Compile Include="Effects\ExtraMagEffect.cs" />
         <Compile Include="Effects\PanicEffect.cs" />
         <Compile Include="Effects\ReversibleEffect.cs" />
+        <Compile Include="Util\StatModifier.cs" />
         <Compile Include="VECsPlugin.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
