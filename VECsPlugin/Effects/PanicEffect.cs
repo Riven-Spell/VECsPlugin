@@ -68,6 +68,9 @@ namespace VECsPlugin.Effects
             m_Reload.Multiplicative = Mathf.Lerp(1 / m_cardMultiplier, 1, perc);
             m_AttackSpeed.Multiplicative = Mathf.Lerp(1 / m_cardMultiplier, 1, perc);
             m_Spread.Additive = Mathf.Lerp(0, .04f * m_cardMultiplier, 1 - perc);
+            
+            UnityEngine.Debug.Log($"Multipliers: Reload: {m_Reload.Multiplicative} Attack speed: {m_AttackSpeed.Multiplicative} Additive: Spread: {m_Spread.Multiplicative}");
+
             DoModifierUpdate();
         }
 

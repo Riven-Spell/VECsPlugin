@@ -29,6 +29,7 @@ namespace VECsPlugin.Util
         
         public void EndGame()
         {
+            mods.RemoveRange(0, mods.Count);
             Destroy(this);
         }
 
@@ -36,12 +37,15 @@ namespace VECsPlugin.Util
         {
             baseStat = GetTarget();
             baseStatOffset = 0;
+            UnityEngine.Debug.Log($"{PropertyName} absolute base: {GetTarget()}");
             Update();
         }
 
         public void CleanupRound()
         {
             AdjustTarget(-baseStatOffset );
+            baseStatOffset = 0;
+            UnityEngine.Debug.Log($"{PropertyName} post cleanup: {GetTarget()}");
         }
 
         public void RegisterModifier(FloatStatModifier mod)
@@ -80,6 +84,7 @@ namespace VECsPlugin.Util
             }
 
             AdjustTarget(-baseStatOffset); // Return to the original base
+            UnityEngine.Debug.Log($"{PropertyName} base return: {GetTarget()}");
             baseStatOffset = result - baseStat;
             AdjustTarget(baseStatOffset);
             UnityEngine.Debug.Log($"{PropertyName}: {GetTarget()}");

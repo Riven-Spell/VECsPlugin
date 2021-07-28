@@ -35,11 +35,12 @@ namespace VECsPlugin
 
         private IEnumerator OnGameEnd(IGameModeHandler handler)
         {
+            UnityEngine.Debug.Log("game end");
             foreach (var reversibleEffect in reversibleEffects)
             {
                 reversibleEffect.EndGame();
             }
-
+            
             // Kill all reversible effects
             reversibleEffects.RemoveRange(0, reversibleEffects.Count);
 

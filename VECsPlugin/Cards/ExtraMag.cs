@@ -59,6 +59,7 @@ namespace VECsPlugin.Cards
             thisExtraMagEffect.PrepareOnce(gun, thisReloadSpeedStatModifier, thisReloadSpeedManager);
             
             VECsPlugin.reversibleEffects.Add(thisExtraMagEffect);
+            VECsPlugin.reversibleEffects.Add(thisReloadSpeedManager);
         }
 
         public override void OnRemoveCard()

@@ -66,6 +66,10 @@ namespace VECsPlugin.Cards
             var thisPanicEffect = player.gameObject.GetOrAddComponent<PanicEffect>();
             thisPanicEffect.PrepareOnce(player, characterStats, ReloadModifier, AttackSpeedModifier, SpreadModifier, new List<FloatStatManager>() {thisReloadSpeedManager, thisAttackSpeedManager, thisSpreadManager});
             thisPanicEffect.IncreaseMultiplier(4f);
+            
+            VECsPlugin.reversibleEffects.Add(thisReloadSpeedManager);
+            VECsPlugin.reversibleEffects.Add(thisAttackSpeedManager);
+            VECsPlugin.reversibleEffects.Add(thisSpreadManager);
             VECsPlugin.reversibleEffects.Add(thisPanicEffect);
         }
 
