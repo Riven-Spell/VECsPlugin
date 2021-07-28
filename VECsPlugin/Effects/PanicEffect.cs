@@ -65,9 +65,6 @@ namespace VECsPlugin.Effects
         {
             var perc = m_player.data.HealthPercentage;
 
-            // m_Reload.Multiplicative = 1 / (perc * m_cardMultiplier);
-            // m_AttackSpeed.Multiplicative = 1 / (perc * m_cardMultiplier);
-            // m_Spread.Multiplicative = perc * m_cardMultiplier * 0.6f;
             m_Reload.Multiplicative = Mathf.Lerp(1 / m_cardMultiplier, 1, perc);
             m_AttackSpeed.Multiplicative = Mathf.Lerp(1 / m_cardMultiplier, 1, perc);
             m_Spread.Additive = Mathf.Lerp(0, .04f * m_cardMultiplier, 1 - perc);

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BepInEx;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnboundLib.GameModes;
@@ -13,7 +14,7 @@ namespace VECsPlugin
     [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "0.1")]
     [BepInProcess("Rounds.exe")]
     [BepInDependency("com.willis.rounds.unbound", "2.3.0")]
-    // [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch")]
+    [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch")]
     public class VECsPlugin : BaseUnityPlugin
     {
         private void Start()
@@ -21,7 +22,9 @@ namespace VECsPlugin
             // Add cards
             CustomCard.BuildCard<PanicCard>();
             CustomCard.BuildCard<ExtraMag>();
-            
+            CustomCard.BuildCard<BiggerMag>();
+            CustomCard.BuildCard<Teleporter>();
+
             // Register hooks for ReversibleEffects
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, handler => OnGameEnd(handler));
             GameModeManager.AddHook(GameModeHooks.HookRoundStart, handler => OnRoundStart(handler));

@@ -62,8 +62,11 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Cards\BiggerMag.cs" />
         <Compile Include="Cards\ExtraMag.cs" />
         <Compile Include="Cards\PanicCard.cs" />
+        <Compile Include="Cards\Teleporter.cs" />
+        <Compile Include="Effects\Bullet\TeleportEffect.cs" />
         <Compile Include="Effects\ExtraMagEffect.cs" />
         <Compile Include="Effects\PanicEffect.cs" />
         <Compile Include="Effects\ReversibleEffect.cs" />
