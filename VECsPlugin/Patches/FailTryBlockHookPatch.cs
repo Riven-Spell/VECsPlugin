@@ -16,8 +16,6 @@ namespace VECsPlugin.Patches
                 {
                     effect.FailedBlock(__instance);
                 }
-                // ___data.health -= ___data.maxHealth / 10;
-                // __instance.RPCA_DoBlock(true, true);
             }
         }
     }

@@ -34,6 +34,7 @@ namespace VECsPlugin
             CustomCard.BuildCard<BiggerMag>();
             CustomCard.BuildCard<Teleporter>();
             CustomCard.BuildCard<BloodMagic>();
+            CustomCard.BuildCard<Consume>();
 
             // Register hooks for ReversibleEffects
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, handler => OnGameEnd(handler));

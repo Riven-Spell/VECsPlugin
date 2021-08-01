@@ -64,9 +64,12 @@
     <ItemGroup>
         <Compile Include="Cards\BiggerMag.cs" />
         <Compile Include="Cards\BloodMagic.cs" />
+        <Compile Include="Cards\Categories.cs" />
+        <Compile Include="Cards\Consume.cs" />
         <Compile Include="Cards\ExtraMag.cs" />
         <Compile Include="Cards\PanicCard.cs" />
         <Compile Include="Cards\Teleporter.cs" />
+        <Compile Include="Effects\ConsumeEffect.cs" />
         <Compile Include="Effects\FailTryBlockHookEffect.cs" />
         <Compile Include="Effects\Bullet\TeleportEffect.cs" />
         <Compile Include="Effects\ExtraMagEffect.cs" />

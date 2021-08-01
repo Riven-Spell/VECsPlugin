@@ -1,21 +1,20 @@
-﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
-using UnboundLib;
+﻿using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 using VECsPlugin.Effects;
 
 namespace VECsPlugin.Cards
 {
-    public class BloodMagic : CustomCard
+    public class Consume : CustomCard
     {
         protected override string GetTitle()
         {
-            return "Blood Magic";
+            return "Consume";
         }
 
         protected override string GetDescription()
         {
-            return "Block outside of your cooldown, for a price.";
+            return $"Eat another player's bullet upon blocking it, recovering {ConsumeEffect.ConsumeIncreaseDegree * 100f}% of the damage as HP.";
         }
 
         protected override CardInfoStat[] GetStats()
@@ -25,7 +24,7 @@ namespace VECsPlugin.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Uncommon;
         }
 
         protected override GameObject GetCardArt()
@@ -35,12 +34,11 @@ namespace VECsPlugin.Cards
 
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.EvilPurple;
+            return CardThemeColor.CardThemeColorType.DefensiveBlue;
         }
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers)
         {
-            cardInfo.allowMultiple = false;
             cardInfo.categories = new CardCategory[]
             {
                 Categories.HealthRelatedBlock,
@@ -54,13 +52,9 @@ namespace VECsPlugin.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,
             Block block, CharacterStatModifiers characterStats)
         {
-            var hook = player.gameObject.GetOrAddComponent<FailTryBlockHookEffect>();
-            hook.OnFailBlockAction += b =>
-            {
-                // data.health -= data.maxHealth / 10;
-                data.healthHandler.TakeDamage(Vector2.up * (data.maxHealth / 5), Vector2.zero, Color.red, ignoreBlock: true);
-                b.RPCA_DoBlock(false, true);
-            };
+            var thisConsumeEffect = player.gameObject.GetOrAddComponent<ConsumeEffect>();
+            thisConsumeEffect.IncreaseConsumeDegree(ConsumeEffect.ConsumeIncreaseDegree);
+            thisConsumeEffect.PrepareOnce(data);
         }
 
         public override void OnRemoveCard()
