@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BepInEx;
 using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+using HarmonyLib;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnboundLib.GameModes;
@@ -19,6 +20,12 @@ namespace VECsPlugin
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch")]
     public class VECsPlugin : BaseUnityPlugin
     {
+        private void Awake()
+        {
+            // Have harmony patch things
+            new Harmony("org.virepri.rounds.vecs").PatchAll();
+        }
+        
         private void Start()
         {
             // Add cards
@@ -26,6 +33,7 @@ namespace VECsPlugin
             CustomCard.BuildCard<ExtraMag>();
             CustomCard.BuildCard<BiggerMag>();
             CustomCard.BuildCard<Teleporter>();
+            CustomCard.BuildCard<BloodMagic>();
 
             // Register hooks for ReversibleEffects
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, handler => OnGameEnd(handler));
@@ -33,15 +41,30 @@ namespace VECsPlugin
             GameModeManager.AddHook(GameModeHooks.HookRoundEnd, handler => OnRoundEnd(handler));
         }
 
-        public static List<ReversibleEffect> reversibleEffects
+        public static List<RoundTemporaryEffect> RoundTemporaryEffects
         {
             get
             {
-                var result = new List<ReversibleEffect>();
+                var result = new List<RoundTemporaryEffect>();
                 
                 foreach (var instancePlayer in PlayerManager.instance.players)
                 {
-                    result.AddRange(instancePlayer.GetComponents<ReversibleEffect>());
+                    result.AddRange(instancePlayer.GetComponents<RoundTemporaryEffect>());
+                }
+                
+                return result;
+            }
+        }
+        
+        public static List<GameTemporaryEffect> GameTemporaryEffects
+        {
+            get
+            {
+                var result = new List<GameTemporaryEffect>();
+                
+                foreach (var instancePlayer in PlayerManager.instance.players)
+                {
+                    result.AddRange(instancePlayer.GetComponents<GameTemporaryEffect>());
                 }
                 
                 return result;
@@ -51,7 +74,7 @@ namespace VECsPlugin
         private IEnumerator OnGameEnd(IGameModeHandler handler)
         {
             UnityEngine.Debug.Log("Game end");
-            foreach (var reversibleEffect in reversibleEffects)
+            foreach (var reversibleEffect in GameTemporaryEffects)
             {
                 UnityEngine.Debug.Log($"Game end: {reversibleEffect.GetType().Name}");
                 reversibleEffect.EndGame();
@@ -63,7 +86,7 @@ namespace VECsPlugin
             }
 
             // Kill all reversible effects
-            reversibleEffects.RemoveRange(0, reversibleEffects.Count);
+            RoundTemporaryEffects.RemoveRange(0, RoundTemporaryEffects.Count);
 
             yield break;
         }
@@ -71,7 +94,7 @@ namespace VECsPlugin
         private IEnumerator OnRoundStart(IGameModeHandler handler)
         {
             UnityEngine.Debug.Log("Round start");
-            foreach (var reversibleEffect in reversibleEffects)
+            foreach (var reversibleEffect in RoundTemporaryEffects)
             {
                 UnityEngine.Debug.Log($"Round start: {reversibleEffect.GetType().Name}");
                 reversibleEffect.SetupRound();
@@ -83,7 +106,7 @@ namespace VECsPlugin
         private IEnumerator OnRoundEnd(IGameModeHandler handler)
         {
             UnityEngine.Debug.Log("Round end");
-            foreach (var reversibleEffect in reversibleEffects)
+            foreach (var reversibleEffect in RoundTemporaryEffects)
             {
                 UnityEngine.Debug.Log($"Round end: {reversibleEffect.GetType().Name}");
                 reversibleEffect.CleanupRound();

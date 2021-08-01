@@ -16,7 +16,7 @@ namespace VECsPlugin.Util
         }
     }
 
-    public class FloatStatManager : MonoBehaviour, ReversibleEffect
+    public class FloatStatManager : MonoBehaviour, RoundTemporaryEffect
     {
         private List<FloatStatModifier> mods = new List<FloatStatModifier>();
         private bool basePrepared;

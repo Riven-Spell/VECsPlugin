@@ -63,13 +63,16 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Cards\BiggerMag.cs" />
+        <Compile Include="Cards\BloodMagic.cs" />
         <Compile Include="Cards\ExtraMag.cs" />
         <Compile Include="Cards\PanicCard.cs" />
         <Compile Include="Cards\Teleporter.cs" />
+        <Compile Include="Effects\FailTryBlockHookEffect.cs" />
         <Compile Include="Effects\Bullet\TeleportEffect.cs" />
         <Compile Include="Effects\ExtraMagEffect.cs" />
         <Compile Include="Effects\PanicEffect.cs" />
-        <Compile Include="Effects\ReversibleEffect.cs" />
+        <Compile Include="Effects\TemporaryEffectInterface.cs" />
+        <Compile Include="Patches\FailTryBlockHookPatch.cs" />
         <Compile Include="Util\StatModifier.cs" />
         <Compile Include="VECsPlugin.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

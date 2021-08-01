@@ -7,7 +7,7 @@ using VECsPlugin.Util;
 
 namespace VECsPlugin.Effects
 {
-    public class PanicEffect : MonoBehaviour, ReversibleEffect
+    public class PanicEffect : MonoBehaviour, RoundTemporaryEffect
     {
         private Player m_player;
         private FloatStatModifier m_Reload;

@@ -5,7 +5,7 @@ using VECsPlugin.Util;
 
 namespace VECsPlugin.Effects
 {
-    public class ExtraMagEffect : MonoBehaviour, ReversibleEffect
+    public class ExtraMagEffect : MonoBehaviour, RoundTemporaryEffect
     {
         private Gun m_Gun;
         private FloatStatModifier m_GunSpeedMod;
