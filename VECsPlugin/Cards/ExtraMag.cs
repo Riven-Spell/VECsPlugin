@@ -51,15 +51,15 @@ namespace VECsPlugin.Cards
             Block block, CharacterStatModifiers characterStats)
         {
             characterStats.automaticReload = false; // Auto reload is disabled, because it creates a bottomless clip.
-            var thisStatModRegistry = player.gameObject.GetOrAddComponent<StatModifierRegistry>();
-            var thisReloadSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunReloadSpeedMultiplier, FloatStatManagerInit.PrepareInitReloadSpeed(gameObject, gun));
+
+            GameObject o;
+            var thisStatModRegistry = (o = player.gameObject).GetOrAddComponent<StatModifierRegistry>();
+            var thisReloadSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunReloadSpeedMultiplier, FloatStatManagerInit.PrepareInitReloadSpeed(o, gun));
             var thisReloadSpeedStatModifier = new FloatStatModifier();
             thisReloadSpeedManager.RegisterModifier(thisReloadSpeedStatModifier);
-            var thisExtraMagEffect = player.gameObject.GetOrAddComponent<ExtraMagEffect>();
+            var thisExtraMagEffect = o.GetOrAddComponent<ExtraMagEffect>();
+            thisExtraMagEffect.isActive = true; // Turn off the kill switch
             thisExtraMagEffect.PrepareOnce(gun, thisReloadSpeedStatModifier, thisReloadSpeedManager);
-            
-            VECsPlugin.reversibleEffects.Add(thisExtraMagEffect);
-            VECsPlugin.reversibleEffects.Add(thisReloadSpeedManager);
         }
 
         public override void OnRemoveCard()

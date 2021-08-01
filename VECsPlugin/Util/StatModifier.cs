@@ -30,7 +30,7 @@ namespace VECsPlugin.Util
         public void EndGame()
         {
             mods.RemoveRange(0, mods.Count);
-            Destroy(this);
+            DestroyImmediate(this);
         }
 
         public void SetupRound()
@@ -38,12 +38,20 @@ namespace VECsPlugin.Util
             baseStat = GetTarget();
             baseStatOffset = 0;
             UnityEngine.Debug.Log($"{PropertyName} absolute base: {GetTarget()}");
-            Update();
+            UpdateSM();
         }
 
         public void CleanupRound()
         {
             AdjustTarget(-baseStatOffset );
+            if (Math.Abs(GetTarget() - baseStat) > Mathf.Epsilon)
+            {
+                UnityEngine.Debug.LogError($"{PropertyName} did NOT pass the sanity check.");
+            }
+            else
+            {
+                UnityEngine.Debug.Log($"<color=green>{PropertyName} DID pass the sanity check.</color>");
+            }
             baseStatOffset = 0;
             UnityEngine.Debug.Log($"{PropertyName} post cleanup: {GetTarget()}");
         }
@@ -74,7 +82,7 @@ namespace VECsPlugin.Util
             return baseStat;
         }
 
-        public void Update()
+        public void UpdateSM()
         {
             var result = GetBase();
 
@@ -103,10 +111,16 @@ namespace VECsPlugin.Util
         {
             if (!FloatStatManagers.ContainsKey(name))
             {
+                UnityEngine.Debug.Log($"Unable to find {name}, adding new FSM.");
                 FloatStatManagers.Add(name, init());                
             }
 
             return FloatStatManagers[name];
+        }
+
+        public void Clear()
+        {
+            FloatStatManagers.Clear();
         }
     }
 
@@ -120,7 +134,6 @@ namespace VECsPlugin.Util
                 newManager.GetTarget = () => gun.GetComponentInChildren<GunAmmo>().reloadTimeMultiplier;
                 newManager.AdjustTarget = f => { gun.GetComponentInChildren<GunAmmo>().reloadTimeMultiplier += f; };
                 newManager.PropertyName = "Reload speed";
-                VECsPlugin.reversibleEffects.Add(newManager);
                 return newManager;
             };
         }
@@ -133,7 +146,6 @@ namespace VECsPlugin.Util
                 newManager.GetTarget = () => gun.attackSpeed;
                 newManager.AdjustTarget = f => { gun.attackSpeed += f; };
                 newManager.PropertyName = "Attack speed";
-                VECsPlugin.reversibleEffects.Add(newManager);
                 return newManager;
             };
         }
@@ -146,7 +158,6 @@ namespace VECsPlugin.Util
                 newManager.GetTarget = () => gun.spread;
                 newManager.AdjustTarget = f => { gun.spread += f; };
                 newManager.PropertyName = "Attack Spread";
-                VECsPlugin.reversibleEffects.Add(newManager);
                 return newManager;
             };
         }

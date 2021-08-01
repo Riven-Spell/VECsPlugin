@@ -15,6 +15,7 @@ namespace VECsPlugin.Effects
         private FloatStatModifier m_Spread;
         private List<FloatStatManager> m_toUpdate;
         private bool m_prepareOnce;
+        public bool isActive;
 
         public void PrepareOnce(Player p, CharacterStatModifiers mods, FloatStatModifier Reload, FloatStatModifier AttackSpeed, FloatStatModifier Spread, List<FloatStatManager> managers)
         {
@@ -43,6 +44,10 @@ namespace VECsPlugin.Effects
         private float m_lastHealth;
         public void Update()
         {
+            // If our kill switch is hit
+            if (!isActive)
+                return;
+            
             // If healed, trigger our update
             if (m_player.data.health > m_lastHealth)
             {
@@ -54,15 +59,21 @@ namespace VECsPlugin.Effects
 
         private void DoModifierUpdate()
         {
+            if (!isActive)
+                return;
+            
             foreach (var floatStatManager in m_toUpdate)
             {
-                floatStatManager.Update();
+                floatStatManager.UpdateSM();
             }
         }
 
         
         private void OnDealtDamage(Vector2 dmg, bool selfDamage)
         {
+            if (!isActive)
+                return;
+            
             var perc = m_player.data.HealthPercentage;
 
             m_Reload.Multiplicative = Mathf.Lerp(1 / m_cardMultiplier, 1, perc);
@@ -80,14 +91,15 @@ namespace VECsPlugin.Effects
             m_AttackSpeed.Multiplicative = 1f;
             m_Spread.Additive = 0f;
             DoModifierUpdate();
-            Destroy(this);     
+            m_cardMultiplier = 0f;
+            isActive = false; // just to force this thing off, because the next line doesn't seem to cooperate.
         }
 
         public void SetupRound()
         {
             m_Reload.Multiplicative = 1f;
             m_AttackSpeed.Multiplicative = 1f;
-            m_Spread.Multiplicative = 1f;
+            m_Spread.Additive = 0f;
             DoModifierUpdate();
         }
 
@@ -95,7 +107,7 @@ namespace VECsPlugin.Effects
         {
             m_Reload.Multiplicative = 1f;
             m_AttackSpeed.Multiplicative = 1f;
-            m_Spread.Multiplicative = 1f;
+            m_Spread.Additive = 0f;
             DoModifierUpdate();
         }
     }

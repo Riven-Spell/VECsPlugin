@@ -54,7 +54,7 @@ namespace VECsPlugin.Effects.Bullet
                 playerTransform.position = transform.position;
                 playerTransform.GetComponentInChildren<PlayerCollision>().IgnoreWallForFrames(2);
 
-                Destroy(gameObject);
+                DestroyImmediate(gameObject);
             }
         }
     }

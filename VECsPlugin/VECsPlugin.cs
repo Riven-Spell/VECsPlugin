@@ -6,14 +6,16 @@ using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnboundLib.GameModes;
+using UnityEngine;
 using VECsPlugin.Cards;
 using VECsPlugin.Effects;
+using VECsPlugin.Util;
 
 namespace VECsPlugin
 {
     [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "0.1")]
     [BepInProcess("Rounds.exe")]
-    [BepInDependency("com.willis.rounds.unbound", "2.3.0")]
+    [BepInDependency("com.willis.rounds.unbound", "2.4.0")]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch")]
     public class VECsPlugin : BaseUnityPlugin
     {
@@ -31,16 +33,35 @@ namespace VECsPlugin
             GameModeManager.AddHook(GameModeHooks.HookRoundEnd, handler => OnRoundEnd(handler));
         }
 
-        public static List<ReversibleEffect> reversibleEffects = new List<ReversibleEffect>();
+        public static List<ReversibleEffect> reversibleEffects
+        {
+            get
+            {
+                var result = new List<ReversibleEffect>();
+                
+                foreach (var instancePlayer in PlayerManager.instance.players)
+                {
+                    result.AddRange(instancePlayer.GetComponents<ReversibleEffect>());
+                }
+                
+                return result;
+            }
+        }
 
         private IEnumerator OnGameEnd(IGameModeHandler handler)
         {
-            UnityEngine.Debug.Log("game end");
+            UnityEngine.Debug.Log("Game end");
             foreach (var reversibleEffect in reversibleEffects)
             {
+                UnityEngine.Debug.Log($"Game end: {reversibleEffect.GetType().Name}");
                 reversibleEffect.EndGame();
+
+                if (reversibleEffect is MonoBehaviour)
+                {
+                    DestroyImmediate((MonoBehaviour) reversibleEffect);
+                }
             }
-            
+
             // Kill all reversible effects
             reversibleEffects.RemoveRange(0, reversibleEffects.Count);
 
@@ -49,8 +70,10 @@ namespace VECsPlugin
 
         private IEnumerator OnRoundStart(IGameModeHandler handler)
         {
+            UnityEngine.Debug.Log("Round start");
             foreach (var reversibleEffect in reversibleEffects)
             {
+                UnityEngine.Debug.Log($"Round start: {reversibleEffect.GetType().Name}");
                 reversibleEffect.SetupRound();
             }
 
@@ -59,8 +82,10 @@ namespace VECsPlugin
 
         private IEnumerator OnRoundEnd(IGameModeHandler handler)
         {
+            UnityEngine.Debug.Log("Round end");
             foreach (var reversibleEffect in reversibleEffects)
             {
+                UnityEngine.Debug.Log($"Round end: {reversibleEffect.GetType().Name}");
                 reversibleEffect.CleanupRound();
             }
 

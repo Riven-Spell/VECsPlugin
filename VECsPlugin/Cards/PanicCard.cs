@@ -51,10 +51,10 @@ namespace VECsPlugin.Cards
             Block block, CharacterStatModifiers characterStats)
         {
             var thisStatModRegistry = player.gameObject.GetOrAddComponent<StatModifierRegistry>();
-            var thisReloadSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunReloadSpeedMultiplier, FloatStatManagerInit.PrepareInitReloadSpeed(gameObject, gun));
-            var thisAttackSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunFireRate, FloatStatManagerInit.PrepareInitAttackSpeed(gameObject, gun));
-            var thisSpreadManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunSpread, FloatStatManagerInit.PrepareInitAttackSpread(gameObject, gun));
-
+            var thisReloadSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunReloadSpeedMultiplier, FloatStatManagerInit.PrepareInitReloadSpeed(player.gameObject, gun));
+            var thisAttackSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunFireRate, FloatStatManagerInit.PrepareInitAttackSpeed(player.gameObject, gun));
+            var thisSpreadManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunSpread, FloatStatManagerInit.PrepareInitAttackSpread(player.gameObject, gun));
+            
             var ReloadModifier = new FloatStatModifier();
             thisReloadSpeedManager.RegisterModifier(ReloadModifier);
             var AttackSpeedModifier = new FloatStatModifier();
@@ -62,15 +62,10 @@ namespace VECsPlugin.Cards
             var SpreadModifier = new FloatStatModifier();
             thisSpreadManager.RegisterModifier(SpreadModifier);
             
-            
             var thisPanicEffect = player.gameObject.GetOrAddComponent<PanicEffect>();
+            thisPanicEffect.isActive = true; // Disable the kill switch, if the object was around for some reason.
             thisPanicEffect.PrepareOnce(player, characterStats, ReloadModifier, AttackSpeedModifier, SpreadModifier, new List<FloatStatManager>() {thisReloadSpeedManager, thisAttackSpeedManager, thisSpreadManager});
             thisPanicEffect.IncreaseMultiplier(4f);
-            
-            VECsPlugin.reversibleEffects.Add(thisReloadSpeedManager);
-            VECsPlugin.reversibleEffects.Add(thisAttackSpeedManager);
-            VECsPlugin.reversibleEffects.Add(thisSpreadManager);
-            VECsPlugin.reversibleEffects.Add(thisPanicEffect);
         }
 
         public override void OnRemoveCard() { }
