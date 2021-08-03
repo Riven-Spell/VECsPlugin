@@ -1,5 +1,7 @@
-﻿using UnboundLib.Cards;
+﻿using UnboundLib;
+using UnboundLib.Cards;
 using UnityEngine;
+using VECsPlugin.Effects;
 using VECsPlugin.Effects.Bullet;
 
 namespace VECsPlugin.Cards
@@ -44,26 +46,8 @@ namespace VECsPlugin.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,
             Block block, CharacterStatModifiers characterStats)
         {
-            bool didBlock = false;
-            Color oldColor = gun.projectileColor;
-            
-            player.data.block.BlockAction += type =>
-            {
-                didBlock = true;
-                oldColor = gun.projectileColor;
-                gun.projectileColor = Color.cyan;
-            };
-            
-            gun.ShootPojectileAction += o =>
-            {
-                if (!didBlock) return;
-                
-                var effect = o.AddComponent<TeleportEffect>();
-                effect.playerTransform = player.transform;
-
-                gun.projectileColor = oldColor;
-                didBlock = false;
-            };
+            var thisTeleporterEffect = player.gameObject.GetOrAddComponent<TeleporterEffect>();
+            thisTeleporterEffect.PrepareOnce(player, gun);
         }
 
         public override void OnRemoveCard()

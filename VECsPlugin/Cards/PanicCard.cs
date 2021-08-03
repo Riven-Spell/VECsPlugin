@@ -22,12 +22,21 @@ namespace VECsPlugin.Cards
 
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]{};
+            return new CardInfoStat[]
+            {
+                new CardInfoStat
+                {
+                    amount = "+20%",
+                    positive = true,
+                    simepleAmount = CardInfoStat.SimpleAmount.aLittleBitOf,
+                    stat = "Health",
+                }
+            };
         }
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Uncommon;
         }
 
         protected override GameObject GetCardArt()
@@ -50,6 +59,8 @@ namespace VECsPlugin.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,
             Block block, CharacterStatModifiers characterStats)
         {
+            data.maxHealth *= 1.2f;
+            
             var thisStatModRegistry = player.gameObject.GetOrAddComponent<StatModifierRegistry>();
             var thisReloadSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunReloadSpeedMultiplier, FloatStatManagerInit.PrepareInitReloadSpeed(player.gameObject, gun));
             var thisAttackSpeedManager = thisStatModRegistry.GetOrAddFloatStatManager(StatModifierRegistry.GunFireRate, FloatStatManagerInit.PrepareInitAttackSpeed(player.gameObject, gun));

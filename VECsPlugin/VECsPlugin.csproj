@@ -74,6 +74,7 @@
         <Compile Include="Effects\Bullet\TeleportEffect.cs" />
         <Compile Include="Effects\ExtraMagEffect.cs" />
         <Compile Include="Effects\PanicEffect.cs" />
+        <Compile Include="Effects\TeleporterEffect.cs" />
         <Compile Include="Effects\TemporaryEffectInterface.cs" />
         <Compile Include="Patches\FailTryBlockHookPatch.cs" />
         <Compile Include="Util\StatModifier.cs" />
