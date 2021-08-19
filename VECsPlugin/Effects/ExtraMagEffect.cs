@@ -40,7 +40,7 @@ namespace VECsPlugin.Effects
             if (!isActive)
                 return;
             
-            if (m_Gun.isReloading && m_Gun.isReloading != m_lastReloadState)
+            if (!m_Gun.isReloading && m_Gun.isReloading != m_lastReloadState)
             {
                 // Spend the mag
                 m_secondMagLoaded = !m_secondMagLoaded;
