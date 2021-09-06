@@ -9,10 +9,17 @@ namespace VECsPlugin.Effects
         private float ConsumeDegree = 0f;
         private CharacterData data;
 
+        private bool prepared = false;
+
         public void PrepareOnce(CharacterData data)
         {
+            if (prepared)
+                return;
+            
             this.data = data;
             data.block.BlockProjectileAction += OnBlockProjectileAction;
+
+            prepared = true;
         }
         
         private void OnBlockProjectileAction(GameObject o, Vector3 fwd, Vector3 pos)

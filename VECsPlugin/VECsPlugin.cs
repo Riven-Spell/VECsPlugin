@@ -35,6 +35,7 @@ namespace VECsPlugin
             CustomCard.BuildCard<Teleporter>();
             CustomCard.BuildCard<BloodMagic>();
             CustomCard.BuildCard<Consume>();
+            CustomCard.BuildCard<InnerPeace>();
 
             // Register hooks for ReversibleEffects
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, handler => OnGameEnd(handler));

@@ -47,6 +47,9 @@
         <Reference Include="CardChoiceSpawnUniqueCardPatch, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>Libs\CardChoiceSpawnUniqueCardPatch.dll</HintPath>
         </Reference>
+        <Reference Include="InControl, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>Libs\InControl.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -60,6 +63,15 @@
         <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>Libs\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>Libs\UnityEngine.ParticleSystemModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>Libs\UnityEngine.Physics2DModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>Libs\UnityEngine.UI.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Cards\BiggerMag.cs" />
@@ -67,12 +79,14 @@
         <Compile Include="Cards\Categories.cs" />
         <Compile Include="Cards\Consume.cs" />
         <Compile Include="Cards\ExtraMag.cs" />
+        <Compile Include="Cards\InnerPeace.cs" />
         <Compile Include="Cards\PanicCard.cs" />
         <Compile Include="Cards\Teleporter.cs" />
         <Compile Include="Effects\ConsumeEffect.cs" />
         <Compile Include="Effects\FailTryBlockHookEffect.cs" />
         <Compile Include="Effects\Bullet\TeleportEffect.cs" />
         <Compile Include="Effects\ExtraMagEffect.cs" />
+        <Compile Include="Effects\InnerPeaceEffect.cs" />
         <Compile Include="Effects\PanicEffect.cs" />
         <Compile Include="Effects\TeleporterEffect.cs" />
         <Compile Include="Effects\TemporaryEffectInterface.cs" />
