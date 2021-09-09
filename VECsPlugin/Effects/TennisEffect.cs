@@ -10,15 +10,22 @@ namespace VECsPlugin.Effects
 
         private Player _p;
         private Gun _g;
+
+        private bool _prepared;
         
         public void PrepareOnce(Player player, Gun gun)
         {
+            if (_prepared)
+                return;
+            
             _g = gun;
             _p = player;
 
             _g.ShootPojectileAction += OnShootProjectileAction;
             _p.data.block.BlockProjectileAction += OnBlockAction;
             _p.gameObject.GetOrAddComponent<BlockOwnProjectileHookEffect>().OnBlockOwnProjectile += OnBlockAction;
+
+            _prepared = true;
         }
 
         private void OnShootProjectileAction(GameObject o)

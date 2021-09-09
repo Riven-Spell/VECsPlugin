@@ -17,7 +17,7 @@ namespace VECsPlugin.Cards
 
         protected override string GetDescription()
         {
-            return @"As <color=#00FF00>health</color> gets lower, <color=#FFFF00>attack/reload</color> speed <color=#00FF00>drastically increase</color>, with </color=#FF0000>reduced</color> accuracy";
+            return @"As <color=#00FF00>health</color> gets lower, <color=#FFFF00>attack/reload</color> speed <color=#00FF00>drastically increase</color>, with </color=#FF0000>reduced</color> accuracy\n<i>Oh god OH GOD <b>OH GOD</b></i>";
         }
 
         protected override CardInfoStat[] GetStats()

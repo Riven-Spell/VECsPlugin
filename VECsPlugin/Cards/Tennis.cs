@@ -14,7 +14,7 @@ namespace VECsPlugin.Cards
 
         protected override string GetDescription()
         {
-            return "Catch bullets out of the air by blocking and combine them with your next shot, increasing damage.";
+            return "Catch bullets out of the air by blocking and combine them with your next shot, increasing damage.\n<i>Yoink!</i>";
         }
 
         protected override CardInfoStat[] GetStats()

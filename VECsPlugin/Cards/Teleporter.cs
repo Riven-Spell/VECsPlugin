@@ -15,7 +15,7 @@ namespace VECsPlugin.Cards
 
         protected override string GetDescription()
         {
-            return "Your next shot after you block teleports you wherever it hits (Yes, off the screen, too)";
+            return "Your next shot after you block teleports you wherever it hits (Yes, off the screen, too)\n<i>See ya later, suckers, I'm out of here!</i>";
         }
 
         protected override CardInfoStat[] GetStats()

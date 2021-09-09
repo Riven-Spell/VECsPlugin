@@ -37,6 +37,7 @@ namespace VECsPlugin
             CustomCard.BuildCard<Consume>();
             CustomCard.BuildCard<InnerPeace>();
             CustomCard.BuildCard<Tennis>();
+            CustomCard.BuildCard<MagOfHolding>();
 
             // Register hooks for ReversibleEffects
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, handler => OnGameEnd(handler));

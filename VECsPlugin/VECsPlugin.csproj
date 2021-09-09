@@ -74,6 +74,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Cards\MagOfHolding.cs" />
         <Compile Include="Cards\BiggerMag.cs" />
         <Compile Include="Cards\BloodMagic.cs" />
         <Compile Include="Cards\Categories.cs" />
@@ -89,6 +90,7 @@
         <Compile Include="Effects\Bullet\TeleportEffect.cs" />
         <Compile Include="Effects\ExtraMagEffect.cs" />
         <Compile Include="Effects\InnerPeaceEffect.cs" />
+        <Compile Include="Effects\MagOfHoldingEffect.cs" />
         <Compile Include="Effects\PanicEffect.cs" />
         <Compile Include="Effects\TeleporterEffect.cs" />
         <Compile Include="Effects\TemporaryEffectInterface.cs" />

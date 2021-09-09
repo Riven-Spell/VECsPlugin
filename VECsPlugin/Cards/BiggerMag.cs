@@ -13,7 +13,7 @@ namespace VECsPlugin.Cards
 
         protected override string GetDescription()
         {
-            return "Double your mag size, Double your reload time.";
+            return "Double your mag size, Double your reload time.\n<i>Double the pain, Double the trouble.</i>";
         }
 
         protected override CardInfoStat[] GetStats()

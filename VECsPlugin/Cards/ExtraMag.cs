@@ -16,7 +16,7 @@ namespace VECsPlugin.Cards
 
         protected override string GetDescription()
         {
-            return "Magazines alternate between reloading <color=#FFFF00>Twice</color> and <color=#FFFF00>Half</color> as fast.";
+            return "Magazines alternate between reloading <color=#FFFF00>Twice</color> and <color=#FFFF00>Half</color> as fast.\n<i>Never hurts to be prepared. At least until you're unprepared.</i>";
         }
 
         protected override CardInfoStat[] GetStats()

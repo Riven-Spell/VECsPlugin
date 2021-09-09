@@ -19,7 +19,7 @@ namespace VECsPlugin.Cards
 
         protected override string GetDescription()
         {
-            return $"Standing still for up to {MaxDuration} seconds <color=#00FF00>raises</color> the damage of your next magazine. A full magazine <b>must</b> be expended to charge after the first shot.";
+            return $"Standing still for up to {MaxDuration} seconds <color=#00FF00>raises</color> the damage of your next magazine. A full magazine <b>must</b> be expended to charge after the first shot.\n<i>The secret to true power is how calm you can be under pressure.</i>";
         }
 
         protected override CardInfoStat[] GetStats()

@@ -15,7 +15,7 @@ namespace VECsPlugin.Cards
 
         protected override string GetDescription()
         {
-            return "Block outside of your cooldown, for a price.";
+            return "Block outside of your cooldown, for a price.\n<i>A wound is cheaper than being dead.</i>";
         }
 
         protected override CardInfoStat[] GetStats()
