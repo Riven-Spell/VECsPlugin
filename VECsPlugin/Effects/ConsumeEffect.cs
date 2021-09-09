@@ -24,7 +24,6 @@ namespace VECsPlugin.Effects
         
         private void OnBlockProjectileAction(GameObject o, Vector3 fwd, Vector3 pos)
         {
-            UnityEngine.Debug.Log("Blocked projectile");
             var phit = o.GetComponent<ProjectileHit>();
             data.healthHandler.Heal(phit.damage * ConsumeDegree);
 

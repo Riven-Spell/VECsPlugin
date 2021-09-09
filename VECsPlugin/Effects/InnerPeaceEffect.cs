@@ -6,52 +6,50 @@ namespace VECsPlugin.Effects
 {
     public class InnerPeaceEffect : MonoBehaviour, RoundTemporaryEffect
     {
-        private Player p;
-        private PlayerActions pa;
-        private Gun g;
-        private ParticleSystem ps;
-        private ParticleSystemRenderer psr;
+        private Player _p;
+        private PlayerActions _pa;
+        private Gun _g;
+        private ParticleSystem _ps;
+        private ParticleSystemRenderer _psr;
 
-        private Vector3 lastPosition;
+        private float _maxMultiplier;
 
-        private float MaxMultiplier;
+        private bool _hasFired;
+        private float _timeWaited;
 
-        private bool HasFired;
-        private float TimeWaited;
-
-        private bool prepared;
+        private bool _prepared;
 
         public void PrepareOnce(Player player, PlayerActions actions, Gun gun)
         {
-            if (prepared)
+            if (_prepared)
                 return;
 
-            g = gun;
-            p = player;
-            pa = actions;
+            _g = gun;
+            _p = player;
+            _pa = actions;
             var pso = Instantiate(new GameObject(), gun.transform);
             pso.transform.position += new Vector3(0, 0, 5);
-            ps = pso.AddComponent<ParticleSystem>();
-            psr = ps.GetComponent<ParticleSystemRenderer>();
+            _ps = pso.AddComponent<ParticleSystem>();
+            _psr = _ps.GetComponent<ParticleSystemRenderer>();
             
             PrepareParticleSystem();
             
-            g.ShootPojectileAction += OnShootProjectileAction;
+            _g.ShootPojectileAction += OnShootProjectileAction;
             
-            prepared = true;
+            _prepared = true;
         }
 
         private void PrepareParticleSystem()
         {
-            var main = ps.main;
+            var main = _ps.main;
             main.duration = 5;
             main.startSpeed = -4f;
             main.startLifetime = .25f;
             main.startSize = 0.1f;
-            var emission = ps.emission;
+            var emission = _ps.emission;
             emission.enabled = true;
             emission.rateOverTime = 100;
-            var shape = ps.shape;
+            var shape = _ps.shape;
             shape.enabled = true;
             shape.shapeType = ParticleSystemShapeType.Circle;
             shape.radius = 1;
@@ -62,63 +60,60 @@ namespace VECsPlugin.Effects
 
         private void OnShootProjectileAction(GameObject o)
         {
-            HasFired = true;
+            _hasFired = true;
             
             var phit = o.GetComponentInChildren<ProjectileHit>();
-            var mult = Mathf.Lerp(1, MaxMultiplier, TimeWaited / InnerPeace.MaxDuration);
+            var mult = Mathf.Lerp(1, _maxMultiplier, _timeWaited / InnerPeace.MaxDuration);
             phit.damage *= mult;
-            
-            UnityEngine.Debug.Log($"Shot gun with damage multiplier {mult}");
         }
 
         public void AddMultiplier(float f)
         {
-            MaxMultiplier += f;
+            _maxMultiplier += f;
         }
 
         private void Update()
         {
-            var isMoving = pa.Left.IsPressed || pa.Right.IsPressed || pa.Up.IsPressed || pa.Down.IsPressed || pa.Jump.IsPressed;
-            var emission = ps.emission;
+            var isMoving = _pa.Left.IsPressed || _pa.Right.IsPressed || _pa.Up.IsPressed || _pa.Down.IsPressed || _pa.Jump.IsPressed;
+            var emission = _ps.emission;
             
-            switch (g.isReloading)
+            switch (_g.isReloading)
             {
-                case false when !isMoving && !HasFired && TimeWaited < InnerPeace.MaxDuration:
+                case false when !isMoving && !_hasFired && _timeWaited < InnerPeace.MaxDuration:
                     emission.enabled = true;
-                    TimeWaited = Mathf.Clamp(TimeWaited + Time.deltaTime, 0f, InnerPeace.MaxDuration);
-                    UnityEngine.Debug.Log($"Waited {TimeWaited}");
+                    _timeWaited = Mathf.Clamp(_timeWaited + Time.deltaTime, 0f, InnerPeace.MaxDuration);
                     break;
                 case true:
                     emission.enabled = false;
-                    HasFired = false;
-                    TimeWaited = 0;
+                    _hasFired = false;
+                    _timeWaited = 0;
                     break;
                 default:
                     emission.enabled = false;
                     break;
             }
 
-            emission.rateOverTime = Mathf.Lerp(0, 100, TimeWaited / InnerPeace.MaxDuration);
+            emission.rateOverTime = Mathf.Lerp(0, 100, _timeWaited / InnerPeace.MaxDuration);
         }
 
         public void EndGame()
         {
-            MaxMultiplier = 0;
-            TimeWaited = 0f;
+            _maxMultiplier = 0;
+            _timeWaited = 0f;
             
-            DestroyImmediate(ps.gameObject);
+            DestroyImmediate(_ps.gameObject);
 
-            g.ShootPojectileAction -= OnShootProjectileAction;
+            _g.ShootPojectileAction -= OnShootProjectileAction;
         }
 
         public void SetupRound()
         {
-            TimeWaited = 0f;
+            _timeWaited = 0f;
         }
 
         public void CleanupRound()
         {
-            TimeWaited = 0f;
+            _timeWaited = 0f;
         }
     }
 }

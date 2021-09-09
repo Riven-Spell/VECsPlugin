@@ -82,6 +82,7 @@
         <Compile Include="Cards\InnerPeace.cs" />
         <Compile Include="Cards\PanicCard.cs" />
         <Compile Include="Cards\Teleporter.cs" />
+        <Compile Include="Cards\Tennis.cs" />
         <Compile Include="Effects\ConsumeEffect.cs" />
         <Compile Include="Effects\FailTryBlockHookEffect.cs" />
         <Compile Include="Effects\Bullet\TeleportEffect.cs" />
@@ -90,7 +91,9 @@
         <Compile Include="Effects\PanicEffect.cs" />
         <Compile Include="Effects\TeleporterEffect.cs" />
         <Compile Include="Effects\TemporaryEffectInterface.cs" />
+        <Compile Include="Effects\TennisEffect.cs" />
         <Compile Include="Patches\FailTryBlockHookPatch.cs" />
+        <Compile Include="Patches\IncludeBlockOwnProjectilesPatch.cs" />
         <Compile Include="Util\StatModifier.cs" />
         <Compile Include="VECsPlugin.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
