@@ -18,11 +18,7 @@ namespace VECsPlugin.Effects
 
             _g.ShootPojectileAction += OnShootProjectileAction;
             _p.data.block.BlockProjectileAction += OnBlockAction;
-            // ensure it's there
-            if (!IncludeBlockOwnProjectilesPatch.Subscriptions.ContainsKey(_p))
-                IncludeBlockOwnProjectilesPatch.Subscriptions[_p] = OnBlockAction;
-            else
-                IncludeBlockOwnProjectilesPatch.Subscriptions[_p] += OnBlockAction;
+            _p.gameObject.GetOrAddComponent<BlockOwnProjectileHookEffect>().OnBlockOwnProjectile += OnBlockAction;
         }
 
         private void OnShootProjectileAction(GameObject o)
@@ -38,7 +34,6 @@ namespace VECsPlugin.Effects
         private void OnBlockAction(GameObject o, Vector3 vector3, Vector3 arg3)
         {
             var phit = o.GetComponent<ProjectileHit>();
-            UnityEngine.Debug.Log($"Caught a projectile, adding {phit.damage} totalling {_additionalDamage + phit.damage} added damage");
             _additionalDamage += phit.damage;
             
             UnityEngine.Object.Destroy(o);
@@ -50,7 +45,7 @@ namespace VECsPlugin.Effects
 
             _g.ShootPojectileAction -= OnShootProjectileAction;
             _p.data.block.BlockProjectileAction -= OnBlockAction;
-            IncludeBlockOwnProjectilesPatch.Subscriptions[_p] -= OnBlockAction;
+            // no need to worry about the extra hook, that gets cleaned up because it's a GameTemporaryEffect
         }
 
         public void SetupRound()

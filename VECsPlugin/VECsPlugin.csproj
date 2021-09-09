@@ -83,6 +83,7 @@
         <Compile Include="Cards\PanicCard.cs" />
         <Compile Include="Cards\Teleporter.cs" />
         <Compile Include="Cards\Tennis.cs" />
+        <Compile Include="Effects\BlockOwnProjectileHookEffect.cs" />
         <Compile Include="Effects\ConsumeEffect.cs" />
         <Compile Include="Effects\FailTryBlockHookEffect.cs" />
         <Compile Include="Effects\Bullet\TeleportEffect.cs" />

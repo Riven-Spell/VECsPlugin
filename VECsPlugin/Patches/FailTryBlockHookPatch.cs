@@ -10,12 +10,7 @@ namespace VECsPlugin.Patches
         {
             if (!__instance.IsBlocking() && __instance.counter < __instance.Cooldown())
             {
-                var effect = ___data.player.gameObject.GetComponentInChildren<FailTryBlockHookEffect>();
-
-                if (effect != null)
-                {
-                    effect.FailedBlock(__instance);
-                }
+                ___data.player.gameObject.GetComponentInChildren<FailTryBlockHookEffect>()?.FailedBlock(__instance);
             }
         }
     }
