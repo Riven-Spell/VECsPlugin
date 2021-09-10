@@ -14,7 +14,7 @@ using VECsPlugin.Util;
 
 namespace VECsPlugin
 {
-    [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "1.0")]
+    [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "1.0.0")]
     [BepInProcess("Rounds.exe")]
     [BepInDependency("com.willis.rounds.unbound", "2.4.0")]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch")]

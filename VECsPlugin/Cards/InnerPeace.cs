@@ -9,7 +9,7 @@ namespace VECsPlugin.Cards
 {
     public class InnerPeace : CustomCard
     {
-        public const float MaxDuration = 10f;
+        public const float MaxDuration = 7.5f;
         public const float MaxMultiplier = 5f;
         
         protected override string GetTitle()

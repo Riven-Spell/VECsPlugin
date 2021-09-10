@@ -61,8 +61,6 @@ namespace VECsPlugin.Cards
             Block block, CharacterStatModifiers characterStats)
         {
             gunAmmo.maxAmmo += AddedCapacity;
-            
-            
 
             var thisMagOfHoldingEffect = player.gameObject.GetOrAddComponent<MagOfHoldingEffect>();
             thisMagOfHoldingEffect.PrepareOnce(player, gunAmmo, gun);
