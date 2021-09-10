@@ -5,21 +5,25 @@ using VECsPlugin.Effects;
 
 namespace VECsPlugin.Cards
 {
-    public class Tennis : CustomCard
+    public class GravityWells : CustomCard
     {
+        public const float GravityWellTime = 4f;
+        public const float GravityWellRadius = 3.5f;
+        public const float GravityWellForce = 250f;
+        
         protected override string GetTitle()
         {
-            return "Tennis";
+            return "Gravity Wells";
         }
 
         protected override string GetDescription()
         {
-            return "Catch bullets out of the air by blocking and combine them with your next shot, increasing damage.\n<i>Yoink!</i>";
+            return $"Upon impact, your bullets create a gravity well that lasts for {GravityWellTime} seconds.\n<i>Sometimes, you just need to be a greater danger to yourself than your opponent.</i>";
         }
 
         protected override CardInfoStat[] GetStats()
         {
-            return new CardInfoStat[]{};
+            return new CardInfoStat[] { };
         }
 
         protected override CardInfo.Rarity GetRarity()
@@ -29,24 +33,26 @@ namespace VECsPlugin.Cards
 
         protected override GameObject GetCardArt()
         {
-            return new GameObject();
+            return null;
         }
 
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.TechWhite;
+            return CardThemeColor.CardThemeColorType.MagicPink;
         }
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers)
         {
-            cardInfo.allowMultiple = false;
+            
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,
             Block block, CharacterStatModifiers characterStats)
         {
-            var thisTennisEffect = player.gameObject.GetOrAddComponent<TennisEffect>();
-            thisTennisEffect.PrepareOnce(player, gun);
+            gun.projectileColor = Color.magenta;
+
+            var thisGravityWellEffect = player.gameObject.GetOrAddComponent<GravityWellEffect>();
+            thisGravityWellEffect.PrepareOnce(gun);
         }
 
         public override void OnRemoveCard()

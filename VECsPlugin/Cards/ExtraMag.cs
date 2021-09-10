@@ -66,5 +66,10 @@ namespace VECsPlugin.Cards
         {
             
         }
+        
+        public override string GetModName()
+        {
+            return VECsPlugin.ModName;
+        }
     }
 }

@@ -80,5 +80,10 @@ namespace VECsPlugin.Cards
         }
 
         public override void OnRemoveCard() { }
+        
+        public override string GetModName()
+        {
+            return VECsPlugin.ModName;
+        }
     }
 }

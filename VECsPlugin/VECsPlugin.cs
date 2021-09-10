@@ -14,12 +14,14 @@ using VECsPlugin.Util;
 
 namespace VECsPlugin
 {
-    [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "0.1")]
+    [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "1.0")]
     [BepInProcess("Rounds.exe")]
     [BepInDependency("com.willis.rounds.unbound", "2.4.0")]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch")]
     public class VECsPlugin : BaseUnityPlugin
     {
+        public const string ModName = "VECs 1.0";
+        
         private void Awake()
         {
             // Have harmony patch things
@@ -38,6 +40,7 @@ namespace VECsPlugin
             CustomCard.BuildCard<InnerPeace>();
             CustomCard.BuildCard<Tennis>();
             CustomCard.BuildCard<MagOfHolding>();
+            CustomCard.BuildCard<GravityWells>();
 
             // Register hooks for ReversibleEffects
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, handler => OnGameEnd(handler));
@@ -50,7 +53,7 @@ namespace VECsPlugin
             get
             {
                 var result = new List<RoundTemporaryEffect>();
-                
+
                 foreach (var instancePlayer in PlayerManager.instance.players)
                 {
                     result.AddRange(instancePlayer.GetComponents<RoundTemporaryEffect>());

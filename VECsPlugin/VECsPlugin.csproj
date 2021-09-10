@@ -74,6 +74,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Cards\GravityWells.cs" />
         <Compile Include="Cards\MagOfHolding.cs" />
         <Compile Include="Cards\BiggerMag.cs" />
         <Compile Include="Cards\BloodMagic.cs" />
@@ -85,10 +86,13 @@
         <Compile Include="Cards\Teleporter.cs" />
         <Compile Include="Cards\Tennis.cs" />
         <Compile Include="Effects\BlockOwnProjectileHookEffect.cs" />
+        <Compile Include="Effects\Bullet\GravityWellTrigger.cs" />
         <Compile Include="Effects\ConsumeEffect.cs" />
+        <Compile Include="Effects\Environmental\GravityWell.cs" />
         <Compile Include="Effects\FailTryBlockHookEffect.cs" />
         <Compile Include="Effects\Bullet\TeleportEffect.cs" />
         <Compile Include="Effects\ExtraMagEffect.cs" />
+        <Compile Include="Effects\GravityWellEffect.cs" />
         <Compile Include="Effects\InnerPeaceEffect.cs" />
         <Compile Include="Effects\MagOfHoldingEffect.cs" />
         <Compile Include="Effects\PanicEffect.cs" />

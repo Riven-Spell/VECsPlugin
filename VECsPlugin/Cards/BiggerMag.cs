@@ -51,7 +51,12 @@ namespace VECsPlugin.Cards
 
         public override void OnRemoveCard()
         {
-            // TODO
+            
+        }
+
+        public override string GetModName()
+        {
+            return VECsPlugin.ModName;
         }
     }
 }
