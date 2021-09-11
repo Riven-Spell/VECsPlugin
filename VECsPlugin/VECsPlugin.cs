@@ -14,7 +14,7 @@ using VECsPlugin.Util;
 
 namespace VECsPlugin
 {
-    [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "1.1.1")]
+    [BepInPlugin("org.virepri.rounds.vecs", "Virepri's Extra Cards", "1.2.0")]
     [BepInProcess("Rounds.exe")]
     [BepInDependency("com.willis.rounds.unbound", "2.4.0")]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch")]
@@ -42,6 +42,7 @@ namespace VECsPlugin
             CustomCard.BuildCard<MagOfHolding>();
             CustomCard.BuildCard<GravityWells>();
             CustomCard.BuildCard<AntiGravityWells>();
+            CustomCard.BuildCard<Capture>();
 
             // Register hooks for ReversibleEffects
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, handler => OnGameEnd(handler));

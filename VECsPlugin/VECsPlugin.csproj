@@ -75,6 +75,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Cards\AntiGravityWells.cs" />
+        <Compile Include="Cards\Capture.cs" />
         <Compile Include="Cards\GravityWells.cs" />
         <Compile Include="Cards\MagOfHolding.cs" />
         <Compile Include="Cards\BiggerMag.cs" />
@@ -88,6 +89,7 @@
         <Compile Include="Cards\Tennis.cs" />
         <Compile Include="Effects\BlockOwnProjectileHookEffect.cs" />
         <Compile Include="Effects\Bullet\GravityWellTrigger.cs" />
+        <Compile Include="Effects\CaptureEffect.cs" />
         <Compile Include="Effects\ConsumeEffect.cs" />
         <Compile Include="Effects\Environmental\GravityWell.cs" />
         <Compile Include="Effects\FailTryBlockHookEffect.cs" />

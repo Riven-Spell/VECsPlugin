@@ -2,20 +2,19 @@
 using UnboundLib.Cards;
 using UnityEngine;
 using VECsPlugin.Effects;
-using VECsPlugin.Effects.Bullet;
 
 namespace VECsPlugin.Cards
 {
-    public class Teleporter : CustomCard
+    public class Capture : CustomCard
     {
         protected override string GetTitle()
         {
-            return "Teleporter";
+            return "Capture";
         }
 
         protected override string GetDescription()
         {
-            return "Your next shot after you block teleports you wherever it hits (Yes, off the screen, too)\n<i>See ya later, suckers, I'm out of here!</i>";
+            return "Blocking immediately after your last shot hits an enemy turns your next shot into a teleporter targeting them.\n<i>GOTCHA!</i>";
         }
 
         protected override CardInfoStat[] GetStats()
@@ -30,7 +29,7 @@ namespace VECsPlugin.Cards
 
         protected override GameObject GetCardArt()
         {
-            return null;
+            return new GameObject();
         }
 
         protected override CardThemeColor.CardThemeColorType GetTheme()
@@ -48,18 +47,13 @@ namespace VECsPlugin.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,
             Block block, CharacterStatModifiers characterStats)
         {
-            var thisTeleporterEffect = player.gameObject.GetOrAddComponent<TeleporterEffect>();
-            thisTeleporterEffect.PrepareOnce(player, gun);
+            var thisCaptureEffect = player.gameObject.GetOrAddComponent<CaptureEffect>();
+            thisCaptureEffect.PrepareOnce(player, gun);
         }
 
         public override void OnRemoveCard()
         {
             
-        }
-        
-        public override string GetModName()
-        {
-            return VECsPlugin.ModName;
         }
     }
 }

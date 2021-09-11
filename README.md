@@ -16,6 +16,7 @@ Download [r2modman](r2modman), set up a Rounds profile, and add VECs to the prof
 
 - Bigger Magazine - Double the size of your magazine, at the cost of 2x reload speed.
 - Blood Magic - Block on-cooldown for 1/5th of your health.
+- Capture - Blocking immediately after shooting an enemy allows you to choose their location with their next shot, like Teleporter.
 - Consume - Eat blocked bullets, gaining 50% of it's potential damage as health. Does not increase past max health.
 - Extra Magazine - Alternate between .5x reload speed and 2x reload speed.
 - Anti-Gravity Wells - Bullets place an anti-gravity well that pushes players away upon impact, lasting for 4 seconds. 
@@ -27,6 +28,10 @@ Download [r2modman](r2modman), set up a Rounds profile, and add VECs to the prof
 - Tennis - Combine blocked bullets with your next shot, increasing it's damage.
 
 ## Patch Notes
+
+### v1.2.0
+
+- Added Capture.
 
 ### v1.1.3
 
