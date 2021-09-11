@@ -1,7 +1,7 @@
 ﻿{
   "name": "VECs",
   "description": "Virepri's Extra Cards",
-  "version_number": "1.0.0",
+  "version_number": "1.1.0",
   "website_url": "https://github.com/Virepri/VECsPlugin",
   "dependencies": [
     "Pykess-CardChoiceSpawnUniqueCardPatch-0.1.2",

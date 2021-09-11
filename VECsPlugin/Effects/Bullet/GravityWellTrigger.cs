@@ -1,8 +1,5 @@
 ﻿using System.Linq;
-using UnboundLib;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using VECsPlugin.Cards;
 using VECsPlugin.Effects.Environmental;
 
@@ -10,7 +7,12 @@ namespace VECsPlugin.Effects.Bullet
 {
     public class GravityWellTrigger : RayHitEffect
     {
-        private static GameObject lineEffect = null;   
+        private static GameObject lineEffect = null;
+        private static Color InColor = Color.magenta;
+        private static Color OutColor = Color.red;
+
+        public float GravWellForce = 100f;
+        public float GravWellRadius = GravityWells.GravityWellRadius;
         
         public override HasToReturn DoHitEffect(HitInfo hit)
         {
@@ -23,7 +25,9 @@ namespace VECsPlugin.Effects.Bullet
             // attach spawned attack
             GetComponent<SpawnedAttack>().CopySpawnedAttackTo(gravWellGO);
             // set up GravityWell
-            gravWellGO.AddComponent<GravityWell>();
+            var gwell = gravWellGO.AddComponent<GravityWell>();
+            gwell.GravWellForce = GravWellForce;
+            gwell.GravWellRadius = GravWellRadius;
             // TODO: LineEffect
             if (lineEffect == null)
                 FindLineEffect();
@@ -39,12 +43,12 @@ namespace VECsPlugin.Effects.Bullet
                 },
                 colorKeys = new GradientColorKey[]
                 {
-                    new GradientColorKey(Color.magenta, 0)
+                    new GradientColorKey(GravWellForce > 0 ? InColor : OutColor, 0)
                 },
                 mode = GradientMode.Fixed
             };
             effect.widthMultiplier = 2f;
-            effect.radius = GravityWells.GravityWellRadius;
+            effect.radius = GravWellRadius;
             effect.raycastCollision = false;
             effect.useColorOverTime = true;
             
@@ -52,7 +56,7 @@ namespace VECsPlugin.Effects.Bullet
             var _ps = effectGO.AddComponent<ParticleSystem>();
             var main = _ps.main;
             main.duration = 5;
-            main.startSpeed = -4f;
+            main.startSpeed = GravWellForce > 0 ? -4f : 4f;
             main.startLifetime = .5f;
             main.startSize = 0.1f;
             var emission = _ps.emission;
@@ -61,8 +65,11 @@ namespace VECsPlugin.Effects.Bullet
             var shape = _ps.shape;
             shape.enabled = true;
             shape.shapeType = ParticleSystemShapeType.Circle;
-            shape.radius = GravityWells.GravityWellRadius + 0.25f;
+            shape.radius = GravWellForce > 0 ? GravWellRadius + 0.25f : GravWellRadius - 0.5f;
             shape.radiusThickness = 0;
+            var _psr = effectGO.GetComponentInChildren<ParticleSystemRenderer>();
+            if (GravWellForce < 0) // because the brighter missing texture actually looks really good
+                _psr.material.color = OutColor;
 
             return HasToReturn.canContinue;
         }
@@ -70,21 +77,9 @@ namespace VECsPlugin.Effects.Bullet
         private void FindLineEffect()
         {
             UnityEngine.Debug.Log($"{CardChoice.instance.cards.Length}");
-            
-            // foreach (var card in CardChoice.instance.cards)
-            // {
-            //     var mods = card.gameObject.GetComponentInChildren<CharacterStatModifiers>();
-            //     var hasLineEffect = mods.AddObjectToPlayer != null &&
-            //                         mods.AddObjectToPlayer.GetComponentInChildren<LineEffect>() != null;
-            //     UnityEngine.Debug.Log($"{card.name} has mods? {mods != null} adds something to character? {mods.AddObjectToPlayer != null} has line effect? {hasLineEffect}");
-            // }
 
             var card = CardChoice.instance.cards.First(c => c.name.Equals("ChillingPresence"));
-            UnityEngine.Debug.Log($"Card not null? {card != null}");
             var statMods = card.gameObject.GetComponentInChildren<CharacterStatModifiers>();
-            UnityEngine.Debug.Log($"StatMods not null? {statMods != null}");
-            UnityEngine.Debug.Log($"LineEffect exists? {statMods.AddObjectToPlayer.GetComponentInChildren<LineEffect>() != null}");
-            UnityEngine.Debug.Log($"LineEffect has game object? {statMods.AddObjectToPlayer.GetComponentInChildren<LineEffect>().gameObject != null}");
             lineEffect = statMods.AddObjectToPlayer.GetComponentInChildren<LineEffect>().gameObject;
         }
     }

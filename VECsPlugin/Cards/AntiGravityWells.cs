@@ -5,21 +5,16 @@ using VECsPlugin.Effects;
 
 namespace VECsPlugin.Cards
 {
-    public class GravityWells : CustomCard
+    public class AntiGravityWells : CustomCard
     {
-        public const float GravityWellTime = 4f;
-        public const float GravityWellRadius = 4f;
-        public const float MaximumGravityWellForce = 150f;
-        public const float GravityWellDistributedForce = 1200f;
-        
         protected override string GetTitle()
         {
-            return "Gravity Wells";
+            return "Anti-Gravity Wells";
         }
 
         protected override string GetDescription()
         {
-            return $"Upon impact, your bullets create a gravity well that lasts for {GravityWellTime} seconds.\n<i>Sometimes, you just need to be a greater danger to yourself than your opponent.</i>";
+            return $"Upon impact, your bullets create a anti-gravity well forcing your opponents out that lasts for {GravityWells.GravityWellTime} seconds.\n<i>No sir/ma'am, not that way.</i>";
         }
 
         protected override CardInfoStat[] GetStats()
@@ -53,7 +48,7 @@ namespace VECsPlugin.Cards
             gun.projectileColor = Color.magenta;
 
             var thisGravityWellEffect = player.gameObject.GetOrAddComponent<GravityWellEffect>();
-            thisGravityWellEffect.PrepareOnce(gun, gunAmmo);
+            thisGravityWellEffect.PrepareOnce(gun, gunAmmo, true);
             thisGravityWellEffect.AddStack();
         }
 

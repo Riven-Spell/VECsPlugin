@@ -1,4 +1,5 @@
-﻿# VECs - Virepri's Extra Cards
+# VECs - Virepri's Extra Cards
+
 A BepInEx compatible mod for Rounds that adds additional cards to the game.
 
 ## Easy install
@@ -17,6 +18,7 @@ Download [r2modman](r2modman), set up a Rounds profile, and add VECs to the prof
 - Blood Magic - Block on-cooldown for 1/5th of your health.
 - Consume - Eat blocked bullets, gaining 50% of it's potential damage as health. Does not increase past max health.
 - Extra Magazine - Alternate between .5x reload speed and 2x reload speed.
+- Anti-Gravity Wells - Bullets place an anti-gravity well that pushes players away upon impact, lasting for 4 seconds. 
 - Gravity Wells - Bullets place a gravity well that sucks players in upon impact, lasting for 4 seconds.
 - Inner Peace - Standing still with a full magazine for up to 7.5 seconds grants a 5x increase to bullet damage for the entire magazine.
 - Mag of Holding - Gain 16 bullets maximum capacity to your magazine. Emptying your magazine reduces magazine size by 1 bullet each time.
@@ -25,6 +27,16 @@ Download [r2modman](r2modman), set up a Rounds profile, and add VECs to the prof
 - Tennis - Combine blocked bullets with your next shot, increasing it's damage.
 
 ## Patch Notes
+
+### v1.1.0 - Balancing Gravity Wells
+
+- (Anti-)/Gravity wells are now weaker with higher magazine capacity.
+- (Anti-)/Gravity wells can now push/pull non-player objects.
+- Anti-Gravity wells were introduced.
+
+### v1.0.1 - Oops!
+
+- Thunderstore now displays the Readme correctly.
 
 ### v1.0.0 - Release!
 

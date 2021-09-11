@@ -74,6 +74,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Cards\AntiGravityWells.cs" />
         <Compile Include="Cards\GravityWells.cs" />
         <Compile Include="Cards\MagOfHolding.cs" />
         <Compile Include="Cards\BiggerMag.cs" />

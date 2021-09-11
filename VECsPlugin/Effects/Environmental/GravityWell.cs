@@ -12,11 +12,14 @@ namespace VECsPlugin.Effects.Environmental
     {
         private static FastInvokeHandler pvelInvoker = MethodInvoker.GetHandler(AccessTools.Method(typeof(PlayerVelocity), "AddForce", new Type[] { typeof(Vector2), typeof(ForceMode2D) }));
         private HashSet<GameObject> IgnoreCache = new HashSet<GameObject>();
-        private Dictionary<GameObject, PlayerVelocity> MoveCache = new Dictionary<GameObject, PlayerVelocity>();
+        private Dictionary<GameObject, MonoBehaviour> MoveCache = new Dictionary<GameObject, MonoBehaviour>();
+
+        public float GravWellForce = GravityWells.MaximumGravityWellForce;
+        public float GravWellRadius = GravityWells.GravityWellRadius;
 
         public void FixedUpdate()
         {
-            var colls = Physics2D.OverlapCircleAll(this.transform.position, GravityWells.GravityWellRadius);
+            var colls = Physics2D.OverlapCircleAll(this.transform.position, GravWellRadius);
             foreach (var c2d in colls)
             {
                 GameObject go;
@@ -25,21 +28,35 @@ namespace VECsPlugin.Effects.Environmental
                     continue;
 
                 {
-                    // Maybe it's a player?
-                    PlayerVelocity pvel;
-                    if (!MoveCache.TryGetValue(go, out pvel))
+                    MonoBehaviour ovel;
+                    if (!MoveCache.TryGetValue(go, out ovel))
                     {
-                        pvel = go.GetComponentInChildren<PlayerVelocity>();
-                        MoveCache.Add(go, pvel);
+                        // Maybe it's a player?
+                        ovel = go.GetComponentInChildren<PlayerVelocity>();
+                        if (ovel != null)
+                        {
+                            MoveCache.Add(go, ovel);
+                        }
+                        else
+                        {
+                            // Maybe it's an object?
+                            ovel = go.GetComponentInChildren<NetworkPhysicsObject>();
+                            if (ovel == null)
+                            {
+                                // It's neither of our movable types. Cache it.
+                                IgnoreCache.Add(c2d.gameObject);
+                                continue;
+                            }
+                        }
                     }
-                    
-                    if (pvel != null)
+
+                    if (ovel is PlayerVelocity)
                     {
-                        pvelInvoker.Invoke(pvel, (Vector2) (-((c2d.transform.position - transform.position).normalized * GravityWells.GravityWellForce)), ForceMode2D.Impulse);
+                        pvelInvoker.Invoke((PlayerVelocity) ovel, (Vector2) (-((c2d.transform.position - transform.position).normalized * GravWellForce)), ForceMode2D.Impulse);
                     }
-                    else
+                    else if (ovel is NetworkPhysicsObject)
                     {
-                        IgnoreCache.Add(c2d.gameObject);
+                        ((NetworkPhysicsObject) ovel).BulletPush(-((c2d.transform.position - transform.position).normalized * GravWellForce) * 5, Vector2.zero, null);
                     }
                 }
             }
