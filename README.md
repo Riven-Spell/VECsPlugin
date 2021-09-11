@@ -28,6 +28,11 @@ Download [r2modman](r2modman), set up a Rounds profile, and add VECs to the prof
 
 ## Patch Notes
 
+### v1.1.1
+
+- Fix color of anti-grav bullet
+- Weaken anti-gravity well strength
+
 ### v1.1.0 - Balancing Gravity Wells
 
 - (Anti-)/Gravity wells are now weaker with higher magazine capacity.

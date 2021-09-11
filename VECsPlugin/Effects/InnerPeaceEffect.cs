@@ -30,7 +30,7 @@ namespace VECsPlugin.Effects
             var pso = Instantiate(new GameObject(), gun.transform);
             pso.transform.position += new Vector3(0, 0, 5);
             _ps = pso.AddComponent<ParticleSystem>();
-            _psr = _ps.GetComponent<ParticleSystemRenderer>();
+            _psr = pso.GetComponentInChildren<ParticleSystemRenderer>();
             
             PrepareParticleSystem();
             
@@ -54,7 +54,7 @@ namespace VECsPlugin.Effects
             shape.shapeType = ParticleSystemShapeType.Circle;
             shape.radius = 1;
             shape.radiusThickness = 0;
-            
+
             // this has purple debug particles... but I kinda like how it looks?
         }
 

@@ -45,7 +45,7 @@ namespace VECsPlugin.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,
             Block block, CharacterStatModifiers characterStats)
         {
-            gun.projectileColor = Color.magenta;
+            gun.projectileColor = Color.red;
 
             var thisGravityWellEffect = player.gameObject.GetOrAddComponent<GravityWellEffect>();
             thisGravityWellEffect.PrepareOnce(gun, gunAmmo, true);

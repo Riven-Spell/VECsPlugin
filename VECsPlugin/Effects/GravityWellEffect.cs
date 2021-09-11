@@ -38,7 +38,7 @@ namespace VECsPlugin.Effects
             // attach the trigger
             var trigger = obj.AddComponent<GravityWellTrigger>();
             trigger.GravWellForce = Mathf.Clamp(GravityWells.GravityWellDistributedForce / _ga.maxAmmo, 0f, GravityWells.MaximumGravityWellForce);
-            trigger.GravWellForce *= reverse ? -3 : 1;
+            trigger.GravWellForce *= reverse ? -1.5f : 1;
             trigger.GravWellRadius = (1f + ((stacks - 1) * .5f)) * GravityWells.GravityWellRadius;
         }
 
