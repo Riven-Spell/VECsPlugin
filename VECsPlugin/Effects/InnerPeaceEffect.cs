@@ -7,10 +7,10 @@ namespace VECsPlugin.Effects
     public class InnerPeaceEffect : MonoBehaviour, RoundTemporaryEffect
     {
         private Player _p;
-        private PlayerActions _pa;
         private Gun _g;
         private ParticleSystem _ps;
         private ParticleSystemRenderer _psr;
+        private PlayerVelocity _pv;
 
         private float _maxMultiplier;
 
@@ -19,14 +19,14 @@ namespace VECsPlugin.Effects
 
         private bool _prepared;
 
-        public void PrepareOnce(Player player, PlayerActions actions, Gun gun)
+        public void PrepareOnce(Player player, Gun gun)
         {
             if (_prepared)
                 return;
 
             _g = gun;
             _p = player;
-            _pa = actions;
+            _pv = player.GetComponentInChildren<PlayerVelocity>();
             var pso = Instantiate(new GameObject(), gun.transform);
             pso.transform.position += new Vector3(0, 0, 5);
             _ps = pso.AddComponent<ParticleSystem>();
@@ -74,7 +74,9 @@ namespace VECsPlugin.Effects
 
         private void Update()
         {
-            var isMoving = _pa.Left.IsPressed || _pa.Right.IsPressed || _pa.Up.IsPressed || _pa.Down.IsPressed || _pa.Jump.IsPressed;
+            // _p.data.movement
+            // var isMoving = _pa.Left.IsPressed || _pa.Right.IsPressed || _pa.Up.IsPressed || _pa.Down.IsPressed || _pa.Jump.IsPressed;
+            var isMoving = ((Vector2)_pv.GetFieldValue("velocity")).magnitude > 0.5;
             var emission = _ps.emission;
             
             switch (_g.isReloading)

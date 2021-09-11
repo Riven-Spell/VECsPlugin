@@ -51,7 +51,7 @@ namespace VECsPlugin.Cards
             Block block, CharacterStatModifiers characterStats)
         {
             var thisInnerPeaceEffect = player.gameObject.GetOrAddComponent<InnerPeaceEffect>();
-            thisInnerPeaceEffect.PrepareOnce(player, data.playerActions, gun);
+            thisInnerPeaceEffect.PrepareOnce(player, gun);
             thisInnerPeaceEffect.AddMultiplier(MaxMultiplier);
             
             characterStats.automaticReload = false;

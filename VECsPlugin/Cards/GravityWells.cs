@@ -44,7 +44,8 @@ namespace VECsPlugin.Cards
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers)
         {
-            
+            cardInfo.categories = new[] { Categories.GravityWell };
+            cardInfo.blacklistedCategories = new[] { Categories.AntiGravityWell };
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity,

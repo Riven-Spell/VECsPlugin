@@ -28,6 +28,14 @@ Download [r2modman](r2modman), set up a Rounds profile, and add VECs to the prof
 
 ## Patch Notes
 
+### v1.1.3
+
+- Inner Peace works online now.
+
+### v1.1.2
+
+- Exclude Anti Gravity Well and Gravity Well from eachother
+
 ### v1.1.1
 
 - Fix color of anti-grav bullet
